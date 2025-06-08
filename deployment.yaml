@@ -1,19 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: flask-app
-spec:
-  replicas: 2
+  name: nginx-deploy
+spec: 
+  replicas: 1
   selector:
     matchLabels:
-      app: flask-app
+      app: nginx
   template:
-    metadata:
-      labels:
-        app: flask-app
+    metadata: 
+      labels: 
+        app: nginx
     spec:
       containers:
-      - name: flask-container
-        image: flask-app:latest
+      - name: nginx
+        image: nginx
+        resources:
+         requests:
+          cpu: "100m"
+         limits:
+          cpu: "200m"
         ports:
-        - containerPort: 5000
+        - containerPort: 80
